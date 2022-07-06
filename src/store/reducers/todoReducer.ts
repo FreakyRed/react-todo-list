@@ -19,18 +19,18 @@ interface TodoItem {
 
 export function todoListreducer(
   state = todoLists,
-  action: PayloadAction<TodoList>
+{type, payload}
 ) {
-  switch (action.type) {
+  switch (type) {
     case "ADD_TODO":
       return {
         ...state,
-        todos: [...state.todos, action.payload],
+        todos: [...state.todos, payload],
       };
     case "REMOVE_TODO":
       return {
         ...state,
-        todos: state.todos.filter((item) => item.id !== action.payload.id),
+        todos: state.todos.filter((item) => item.id !== payload.id),
       };
     default:
       return state;
@@ -39,17 +39,17 @@ export function todoListreducer(
 
 export function todoItemReducer(
   state = todoLists,
-  action: PayloadAction<TodoItem>
+  {type, payload}
 ) {
-  switch (action.type) {
+  switch (type) {
     case "ADD_TODO_ITEM":
       return {
         ...state,
         todos: [
           ...state.todos,
           state.todos
-            .find((item) => item.id === action.payload.todoListId)
-            ?.todoItems.concat(action.payload),
+            .find((item) => item.id === payload.todoListId)
+            ?.todoItems.concat(payload),
         ],
       };
     case "REMOVE_TODO_ITEM":
@@ -58,8 +58,8 @@ export function todoItemReducer(
         todos: [
           ...state.todos,
           state.todos
-            .find((item) => item.id === action.payload.todoListId)
-            ?.todoItems.filter((item) => item.id !== action.payload.id),
+            .find((item) => item.id === payload.todoListId)
+            ?.todoItems.filter((item) => item.id !== payload.id),
         ],
       };
   }
