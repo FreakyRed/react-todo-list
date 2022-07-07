@@ -1,4 +1,5 @@
 import update from "immutability-helper";
+import { RootState } from "../store";
 
 const INITIAL_STATE = {
   todos: [],
