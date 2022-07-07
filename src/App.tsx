@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme} from "@mui/material";
 import { Button } from "@mui/material";
 
 import TodoList from "./components/TodoList";
-import DialogWindow from "./components/dialogs/DialogWindow";
+import DialogController from "./components/dialogs/DialogController";
 
 const theme = createTheme({
   palette: {
@@ -26,18 +26,6 @@ const App = () => {
   const state: RootState = useAppSelector((state: RootState) => state);
   const dispatch: AppDispatch = useAppDispatch()
 
-  const [open, setOpen] = useState(false);
-
-
-    const handleOpen = () => {
-        setOpen(true);
-    }
-
-    const handleClose = () => {
-        setOpen(false);
-        dispatch({type: "ADD_TODO", payload: {id: "1", title: "Hello", todoItems: []}})
-    }
-
   useEffect(() => {
     console.log(state);
   }, [state]);
@@ -50,9 +38,8 @@ const App = () => {
       <Button size="large" onClick={() => {dispatch({type: "REMOVE_TODO", payload: {id: "1"}})}}>REMOVE TODO LIST</Button>
       <Button size="large" onClick={() => {dispatch({type: "ADD_TODO_ITEM", payload: {id: "1", todoListId: "1", title: "Hello world"}})}}>ADD TODO ITEM</Button>
       <Button size="large" onClick={() => {dispatch({type: "REMOVE_TODO_ITEM", payload: {id: "1", todoListId: "1"}})}}>REMOVE TODO ITEM</Button>
-      <Button size="large" onClick={() => handleOpen()}>OPEN DIALOG</Button>
     {state.todoList.todos.map((list) => {return <TodoList key={list.id} data={list}></TodoList>})}
-    <DialogWindow open={open} handleClose={() => {handleClose()}}></DialogWindow>
+    <DialogController></DialogController>
     </ThemeProvider>
     </>
   );

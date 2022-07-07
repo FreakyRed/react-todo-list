@@ -13,11 +13,11 @@ const DialogWindow = (props) => {
                 {props.description}
             </DialogContentText>
             <Container>
-            <ListForm onClick={props.handleClose}></ListForm>
+            <ListForm handleClose={props.handleClose}></ListForm>
             </Container>
         </DialogContent>
         <DialogActions>
-            <Button onClick={props.handleClose}>Cancel</Button>
+            <Button onClick={props.handleCancel}>Cancel</Button>
         </DialogActions>
     </Dialog>
 }

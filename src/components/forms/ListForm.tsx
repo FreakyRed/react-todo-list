@@ -15,7 +15,7 @@ const validationSchema = yup.object({
   });
   
 
-const ListForm = ({onClick}) => {
+const ListForm = ({handleClose}) => {
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -23,7 +23,7 @@ const ListForm = ({onClick}) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values.title);
-      onClick()
+      handleClose({title: values.title});
     },
   });
 
