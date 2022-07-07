@@ -1,66 +1,71 @@
-import {  PayloadAction } from "@reduxjs/toolkit";
+import update from "immutability-helper";
 
-const todoLists = {
-  todos: [] as TodoList[],
+const INITIAL_STATE = {
+  todos: [],
 };
 
-interface TodoList {
-  id: String;
-  todoItems: Array<TodoItem>;
-}
+// TODO FIGURE THIS OUT
+// export interface TodoState {
+//   todos: TodoList[];
+// }
 
-interface TodoItem {
-  id: String;
-  todoListId: String;
-  title: String;
-  description: String;
-  deadline: Date;
-}
+// interface TodoList {
+//   id: String;
+//   todoItems: Array<TodoItem>;
+// }
 
-export function todoListreducer(
-  state = todoLists,
-{type, payload}
-) {
+// interface TodoItem {
+//   id: String;
+//   todoListId: String;
+//   title: String;
+//   description: String;
+//   deadline: Date;
+// }
+
+const findIndexById = (state, id) => {
+  return state.todos.findIndex((el) => el.id === id);
+};
+
+export function todoListReducer(state = INITIAL_STATE, { type, payload }) {
   switch (type) {
     case "ADD_TODO":
-      return {
-        ...state,
-        todos: [...state.todos, payload],
-      };
+      return update(state, {
+        todos: {
+          $push: [payload],
+        },
+      });
     case "REMOVE_TODO":
-      return {
-        ...state,
-        todos: state.todos.filter((item) => item.id !== payload.id),
-      };
+      return update(state, {
+        todos: {
+          $splice: [[findIndexById(state, payload.id), 1]],
+        },
+      });
+    case "ADD_TODO_ITEM":
+      return update(state, {
+        todos: {
+          [findIndexById(state, payload.todoListId)]: {
+            todoItems: {
+              $push: [payload],
+            },
+          },
+        },
+      });
+    case "REMOVE_TODO_ITEM":
+      return update(state, {
+        todos: {
+          [findIndexById(state, payload.todoListId)]: {
+            todoItems: {
+              $splice: [
+                [
+                  state.todos.find((el) => el.id === payload.todoListId).todoItems.findIndex((el) => el.id === payload.id),
+                  1,
+                ],
+              ],
+            },
+          },
+        },
+      });
     default:
       return state;
-  }
-}
-
-export function todoItemReducer(
-  state = todoLists,
-  {type, payload}
-) {
-  switch (type) {
-    case "ADD_TODO_ITEM":
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          state.todos
-            .find((item) => item.id === payload.todoListId)
-            ?.todoItems.concat(payload),
-        ],
-      };
-    case "REMOVE_TODO_ITEM":
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          state.todos
-            .find((item) => item.id === payload.todoListId)
-            ?.todoItems.filter((item) => item.id !== payload.id),
-        ],
-      };
   }
 }
