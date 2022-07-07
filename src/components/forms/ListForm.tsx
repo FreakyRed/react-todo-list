@@ -3,10 +3,6 @@ import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material"
 import * as yup from "yup"
 
-interface Errors {
-  title?: String;
-}
-
 const validationSchema = yup.object({
     title: yup
     .string()
