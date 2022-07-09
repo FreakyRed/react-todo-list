@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import * as yup from "yup";
+import styling from "styled-components";
 
 import { DesktopDatePicker } from "@mui/x-date-pickers-pro";
 
@@ -27,6 +28,13 @@ const validationSchema = yup.object({
     .min(new Date(), "Date cannot be in the past"),
 });
 
+const Container = styling.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+`;
+
 const ItemForm = ({ handleClose }) => {
   const formik = useFormik({
     initialValues: {
@@ -46,8 +54,8 @@ const ItemForm = ({ handleClose }) => {
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
+      <Container>
         <TextField
           id="title"
           name="title"
@@ -79,10 +87,10 @@ const ItemForm = ({ handleClose }) => {
             }}
             renderInput={(params) => (
               <TextField
-              {...params}
-              error={
-                formik.touched.deadline && Boolean(formik.errors.deadline)
-              }
+                {...params}
+                error={
+                  formik.touched.deadline && Boolean(formik.errors.deadline)
+                }
               />
             )}
           />
@@ -95,8 +103,8 @@ const ItemForm = ({ handleClose }) => {
         >
           Add
         </Button>
-      </form>
-    </div>
+      </Container>
+    </form>
   );
 };
 

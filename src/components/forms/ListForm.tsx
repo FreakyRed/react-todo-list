@@ -1,31 +1,34 @@
 import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
-import {Button} from "@mui/material"
-import * as yup from "yup"
+import { Button } from "@mui/material";
+import * as yup from "yup";
+import styling from "styled-components"
 
 const validationSchema = yup.object({
-    title: yup
-    .string()
-    .min(3)
-    .required('Title is required')
-  });
-  
+  title: yup.string().min(3).required("Title is required"),
+});
 
-const ListForm = ({handleClose}) => {
+const Container = styling.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+`;
+
+const ListForm = ({ handleClose }) => {
   const formik = useFormik({
     initialValues: {
       title: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values.title);
-      handleClose({title: values.title});
+      handleClose({ title: values.title });
     },
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
+        <Container>
         <TextField
           id="title"
           name="title"
@@ -35,11 +38,16 @@ const ListForm = ({handleClose}) => {
           error={formik.touched.title && Boolean(formik.errors.title)}
           helperText={formik.touched.title && formik.errors.title}
         ></TextField>
-        <Button color="primary" variant="contained" type="submit" disabled={formik.isSubmitting}>
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          disabled={formik.isSubmitting}
+        >
           Submit
         </Button>
+    </Container>
       </form>
-    </div>
   );
 };
 

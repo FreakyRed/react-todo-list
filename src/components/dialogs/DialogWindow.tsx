@@ -11,7 +11,8 @@ import {
 import ListForm from "../forms/ListForm";
 import ItemForm from "../forms/ItemForm";
 
-const Container = styling.div``;
+const Container = styling.div`
+`;
 
 const DialogWindow = (props) => {
   return (

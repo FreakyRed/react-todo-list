@@ -3,35 +3,23 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { AppDispatch } from "../../store/store";
 
+import { v4 as uuid } from "uuid";
 
 import DialogWindow from "./DialogWindow";
 
-const DialogController = () => {
+const DialogController = (props) => {
   const dispatch: AppDispatch = useAppDispatch();
   const [openListDialog, setOpenListDialog] = useState(false);
-  const [openItemDialog, setOpenItemDialog] = useState(false);
 
   const handleOpen = () => {
     setOpenListDialog(true);
-  };
-
-  const handleOpenItem = () => {
-    setOpenItemDialog(true);
   };
 
   const handleClose = (props) => {
     setOpenListDialog(false);
     dispatch({
       type: "ADD_TODO",
-      payload: { id: "1", title: props.title, todoItems: [] },
-    });
-  };
-
-  const handleCloseItem = (props) => {
-    setOpenItemDialog(false);
-    dispatch({
-      type: "ADD_TODO_ITEM",
-      payload: { id: "1", title: props.title, todoListId: "1", description: "Hello" },
+      payload: { id: uuid(), title: props.title, todoItems: [] },
     });
   };
 
@@ -39,22 +27,14 @@ const DialogController = () => {
     setOpenListDialog(false);
   };
 
-  const handleCloseCancelItem = () => {
-    setOpenItemDialog(false);
-  };
-
   return (
     <>
-      <Button onClick={handleOpen}>OPEN DIALOG</Button>
-      <Button onClick={handleOpenItem}>OPEN DIALOG ITEM</Button>
+      <Button onClick={handleOpen} variant="contained">{props.text}</Button>
       <DialogWindow
-        open={openItemDialog}
-        handleClose={handleCloseItem}
-        handleCancel={handleCloseCancelItem}
-      ></DialogWindow>
-      <DialogWindow
-      list={true}
+        list={true}
         open={openListDialog}
+        title={props.title || "Add a ToDo list"}
+        description={props.title || "Please fill in the title"}
         handleClose={handleClose}
         handleCancel={handleCloseCancel}
       ></DialogWindow>

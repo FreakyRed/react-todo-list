@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch} from "./store/hooks";
-import { RootState, AppDispatch } from "./store/store";
+import { useEffect } from "react";
+import { useAppSelector } from "./store/hooks";
+import { RootState } from "./store/store";
 import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme} from "@mui/material";
-import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 import TodoList from "./components/TodoList";
 import DialogController from "./components/dialogs/DialogController";
+import EmptyPage from "./components/pages/EmptyPage";
+import styling from "styled-components"
 
 const theme = createTheme({
   palette: {
-      primary: {
-        main: '#3550b3',
-      },
-      secondary: {
-        main: '#d47a00',
-      },
-      error: {
-        main: '#f53325',
-      },
+    primary: {
+      main: "#3550b3",
     },
+    secondary: {
+      main: "#d47a00",
+    },
+    error: {
+      main: "#f53325",
+    },
+  },
 });
+
+const FloatingButton = styling.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
 
 const App = () => {
   const state: RootState = useAppSelector((state: RootState) => state);
-  const dispatch: AppDispatch = useAppDispatch()
 
   useEffect(() => {
     console.log(state);
@@ -32,17 +38,23 @@ const App = () => {
 
   return (
     <>
-    <CssBaseline/>
-    <ThemeProvider theme={theme}>
-      <Button size="large" onClick={() => {dispatch({type: "ADD_TODO", payload: {id: "1", title: "Hello", todoItems: []}})}}>ADD TODO LIST</Button>
-      <Button size="large" onClick={() => {dispatch({type: "REMOVE_TODO", payload: {id: "1"}})}}>REMOVE TODO LIST</Button>
-      <Button size="large" onClick={() => {dispatch({type: "ADD_TODO_ITEM", payload: {id: "1", todoListId: "1", title: "Hello world"}})}}>ADD TODO ITEM</Button>
-      <Button size="large" onClick={() => {dispatch({type: "REMOVE_TODO_ITEM", payload: {id: "1", todoListId: "1"}})}}>REMOVE TODO ITEM</Button>
-    {state.todoList.todos.map((list) => {return <TodoList key={list.id} data={list}></TodoList>})}
-    <DialogController></DialogController>
-    </ThemeProvider>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        {state.todoList.todos.length === 0 ? (
+          <EmptyPage></EmptyPage>
+        ) : (
+          state.todoList.todos.map((list) => {
+            return (
+              <>
+                <DialogController text="+"></DialogController>
+                <TodoList key={list.id} data={list}></TodoList>
+              </>
+            );
+          })
+        )}
+      </ThemeProvider>
     </>
   );
-}
+};
 
 export default App;
