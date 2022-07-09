@@ -20,6 +20,7 @@ const INITIAL_STATE = {
 //   todoListId: String;
 //   title: String;
 //   description: String;
+//   finished: false;
 //   deadline: Date;
 // }
 
@@ -58,10 +59,26 @@ export function todoListReducer(state = INITIAL_STATE, { type, payload }) {
             todoItems: {
               $splice: [
                 [
-                  state.todos.find((el) => el.id === payload.todoListId).todoItems.findIndex((el) => el.id === payload.id),
+                  state.todos
+                    .find((el) => el.id === payload.todoListId)
+                    .todoItems.findIndex((el) => el.id === payload.id),
                   1,
                 ],
               ],
+            },
+          },
+        },
+      });
+    case "FINISH_TODO_ITEM":
+      return update(state, {
+        todos: {
+          [findIndexById(state, payload.todoListId)]: {
+            todoItems: {
+              [state.todos
+                .find((el) => el.id === payload.todoListId)
+                .todoItems.findIndex((el) => el.id === payload.id)]: {
+                ["finished"]: {$set: payload.finished},
+              },
             },
           },
         },

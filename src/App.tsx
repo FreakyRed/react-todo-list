@@ -23,6 +23,11 @@ const theme = createTheme({
 
 const App = () => {
   const state: RootState = useAppSelector((state: RootState) => state);
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
+
   return (
     <>
       <CssBaseline />

@@ -16,7 +16,7 @@ const Container = styling.div`
 
 const DialogWindow = (props) => {
   return (
-    <Dialog open={props.open} onClose={props.handleClose}>
+    <Dialog open={props.open} onClose={props.handleCloseCancel}>
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{props.description}</DialogContentText>
