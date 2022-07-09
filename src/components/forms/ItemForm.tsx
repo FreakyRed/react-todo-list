@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import * as yup from "yup";
 import styling from "styled-components";
 
-import { DesktopDatePicker } from "@mui/x-date-pickers-pro";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -77,10 +77,9 @@ const ItemForm = ({ handleClose }) => {
           helperText={formik.touched.description && formik.errors.description}
         ></TextField>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DesktopDatePicker
+          <DateTimePicker
             disablePast
             label="Deadline"
-            inputFormat="dd/MM/yyyy"
             value={formik.values.deadline}
             onChange={(value): void => {
               formik.setFieldValue("deadline", value, true);

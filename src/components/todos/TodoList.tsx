@@ -7,22 +7,15 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
-
 import { useState } from "react";
-
-import { useTheme } from "@mui/material";
 import { styled } from "@mui/material";
-
 import TodoItem from "./TodoItem";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import FilterListIcon from "@mui/icons-material/FilterList";
-
 import { useAppDispatch } from "../../store/hooks";
 import styling from "styled-components";
-
 import { v4 as uuid } from "uuid";
-
 import DialogWindow from "../dialogs/DialogWindow";
 import { Menu, MenuItem } from "@mui/material";
 
@@ -52,7 +45,6 @@ const CustomDivider = styled(Divider)`
 `;
 
 const TodoList = ({ data }) => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
 
   //Filter menu handling

@@ -1,5 +1,4 @@
 import update from "immutability-helper";
-import { RootState } from "../store";
 
 const INITIAL_STATE = {
   todos: [],
@@ -77,7 +76,7 @@ export function todoListReducer(state = INITIAL_STATE, { type, payload }) {
               [state.todos
                 .find((el) => el.id === payload.todoListId)
                 .todoItems.findIndex((el) => el.id === payload.id)]: {
-                ["finished"]: {$set: payload.finished},
+                finished: { $set: payload.finished },
               },
             },
           },

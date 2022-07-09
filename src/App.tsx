@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppSelector } from "./store/hooks";
 import { RootState } from "./store/store";
 import { CssBaseline } from "@mui/material";
@@ -24,17 +23,15 @@ const theme = createTheme({
 const App = () => {
   const state: RootState = useAppSelector((state: RootState) => state);
 
-  useEffect(() => {
-    console.log(state)
-  }, [state])
-
   return (
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        {state.todoList.todos.length === 0 ? 
-          <EmptyPage></EmptyPage> : <TodoWrapper></TodoWrapper>
-        }
+        {state.todoList.todos.length === 0 ? (
+          <EmptyPage></EmptyPage>
+        ) : (
+          <TodoWrapper></TodoWrapper>
+        )}
       </ThemeProvider>
     </>
   );

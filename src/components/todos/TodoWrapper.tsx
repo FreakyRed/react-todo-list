@@ -24,7 +24,6 @@ const CustomTodoList = styling(TodoList)`
     max-width: 75%;
 `;
 
-
 const TodoWrapper = () => {
   const state: RootState = useAppSelector((state: RootState) => state);
 
@@ -33,9 +32,9 @@ const TodoWrapper = () => {
       <FloatingButton>
         <DialogController text="+"></DialogController>
       </FloatingButton>
-        {state.todoList.todos.map((list) => {
-          return <CustomTodoList key={list.id} data={list}></CustomTodoList>;
-        })}
+      {state.todoList.todos.map((list) => {
+        return <CustomTodoList key={list.id} data={list}></CustomTodoList>;
+      })}
     </Container>
   );
 };

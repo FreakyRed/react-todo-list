@@ -56,7 +56,9 @@ const TodoItem = ({ data }) => {
         <Typography variant="h6">{data.description}</Typography>
         {!data.finished ? (
           <>
-            <Typography fontWeight="bold" color="primary">Deadline:</Typography>
+            <Typography fontWeight="bold" color="primary">
+              Deadline:
+            </Typography>
             <Typography>{data.deadline}</Typography>
           </>
         ) : (

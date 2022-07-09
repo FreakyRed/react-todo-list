@@ -29,7 +29,9 @@ const DialogController = (props) => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="secondary" variant="contained">{props.text}</Button>
+      <Button onClick={handleOpen} color="secondary" variant="contained">
+        {props.text}
+      </Button>
       <DialogWindow
         list={true}
         open={openListDialog}

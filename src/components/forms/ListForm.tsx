@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import * as yup from "yup";
-import styling from "styled-components"
+import styling from "styled-components";
 
 const validationSchema = yup.object({
   title: yup.string().min(3).required("Title is required"),
@@ -28,7 +28,7 @@ const ListForm = ({ handleClose }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-        <Container>
+      <Container>
         <TextField
           id="title"
           name="title"
@@ -46,8 +46,8 @@ const ListForm = ({ handleClose }) => {
         >
           Submit
         </Button>
-    </Container>
-      </form>
+      </Container>
+    </form>
   );
 };
 
