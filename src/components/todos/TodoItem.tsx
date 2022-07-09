@@ -50,13 +50,13 @@ const TodoItem = ({ data }) => {
   return (
     <Container>
       <DataContainer>
-        <Typography variant="h5" fontWeight="bold">
+        <Typography variant="h5" fontWeight="bold" color="primary">
           {data.title}
         </Typography>
         <Typography variant="h6">{data.description}</Typography>
         {!data.finished ? (
           <>
-            <Typography fontWeight="bold">Deadline:</Typography>
+            <Typography fontWeight="bold" color="primary">Deadline:</Typography>
             <Typography>{data.deadline}</Typography>
           </>
         ) : (

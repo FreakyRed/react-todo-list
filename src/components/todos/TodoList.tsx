@@ -27,12 +27,12 @@ import DialogWindow from "../dialogs/DialogWindow";
 import { Menu, MenuItem } from "@mui/material";
 
 const CustomAvatar = styled(Avatar)({
-  backgroundColor: "black",
+  backgroundColor: "#ffb703",
 }) as typeof Avatar;
 
-// const CustomCardHeader = styled(CardHeader)({
-//   backgroundColor: "secondary",
-// }) as typeof CardHeader;
+const CustomCardHeader = styled(CardHeader)({
+  backgroundColor: "#023047",
+}) as typeof CardHeader;
 
 const CustomIconButton = styling(IconButton)`
   justify-content: center;
@@ -48,7 +48,7 @@ const Container = styling.div`
 
 const CustomDivider = styled(Divider)`
   width: 100%;
-  margin: 1rem;
+  margin: 1rem 0rem 1rem 0;
 `;
 
 const TodoList = ({ data }) => {
@@ -99,10 +99,10 @@ const TodoList = ({ data }) => {
 
   return (
     <Card variant="outlined" key={data.id}>
-      <CardHeader
+      <CustomCardHeader
         avatar={
           <CustomAvatar>
-            <Typography>{data.title[0]}</Typography>
+            <Typography color="primary">{data.title[0]}</Typography>
           </CustomAvatar>
         }
         title={data.title}
@@ -113,7 +113,7 @@ const TodoList = ({ data }) => {
         }}
         action={
           <>
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={handleClick} color="secondary">
               <FilterListIcon></FilterListIcon>
             </IconButton>
             <Menu
@@ -139,12 +139,13 @@ const TodoList = ({ data }) => {
               onClick={() => {
                 dispatchRemove({ id: data.id });
               }}
+              color="secondary"
             >
               <ClearIcon></ClearIcon>
             </IconButton>
           </>
         }
-      ></CardHeader>
+      ></CustomCardHeader>
       <CardContent>
         {data.todoItems
           .filter((item) => {

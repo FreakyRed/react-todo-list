@@ -10,10 +10,10 @@ import TodoWrapper from "./components/todos/TodoWrapper";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#3550b3",
+      main: "#023047",
     },
     secondary: {
-      main: "#d47a00",
+      main: "#ffb703",
     },
     error: {
       main: "#f53325",

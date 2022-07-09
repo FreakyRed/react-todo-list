@@ -8,7 +8,7 @@ import { styled } from "@mui/material";
 const Icon = styled(SentimentDissatisfiedIcon)({
   fontSize: "15rem",
   opacity: 0.75,
-  color: "blue",
+  color: "#d47a00",
 });
 
 const Container = styling.div`
@@ -19,6 +19,10 @@ const Container = styling.div`
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+
+    & > * {
+        padding: 1rem;
+    }
 `;
 
 const EmptyPage = () => {
