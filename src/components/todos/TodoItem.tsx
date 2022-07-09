@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 
 import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 
 const Container = styling.div`
 `;

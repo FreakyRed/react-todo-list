@@ -17,12 +17,12 @@ import TodoItem from "./TodoItem";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import styling from "styled-components";
 
 import { v4 as uuid } from "uuid";
 
-import DialogWindow from "./dialogs/DialogWindow";
+import DialogWindow from "../dialogs/DialogWindow";
 
 const CustomAvatar = styled(Avatar)({
   backgroundColor: "black",
@@ -41,6 +41,7 @@ const CustomIconButton = styling(IconButton)`
 const Container = styling.div`
   display: flex;
   justify-content: center;
+  margin: 1rem 0 -1rem;
 `;
 
 const CustomDivider = styled(Divider)`
@@ -99,9 +100,8 @@ const TodoList = ({ data }) => {
         {data.todoItems.map((item) => {
           return (
             <>
-              <CustomDivider/>
               <TodoItem data={item} key={item.id}></TodoItem>
-              <CustomDivider/>
+              <CustomDivider />
             </>
           );
         })}
