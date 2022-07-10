@@ -1,11 +1,18 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { AppDispatch } from "../../store/store";
+import AddIcon from "@mui/icons-material/Add";
 
 import { v4 as uuid } from "uuid";
 
 import DialogWindow from "./DialogWindow";
+import styling from "styled-components"
+
+const Container = styling.div`
+  background-color: primary;
+  border-radius: 0.10rem;
+`;
 
 const DialogController = (props) => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -29,9 +36,15 @@ const DialogController = (props) => {
 
   return (
     <>
-      <Button onClick={handleOpen} color="secondary" variant="contained">
-        {props.text}
-      </Button>
+      {props.absolute ? (
+        <IconButton onClick={handleOpen} color="secondary" sx={{backgroundColor: "#023047"}}>
+          <AddIcon fontSize="large"></AddIcon>
+        </IconButton>
+      ) : (
+        <Button onClick={handleOpen} color="secondary" variant="contained">
+          {props.text}
+        </Button>
+      )}
       <DialogWindow
         list={true}
         open={openListDialog}

@@ -17,6 +17,8 @@ import styling from "styled-components";
 import { v4 as uuid } from "uuid";
 import DialogWindow from "../dialogs/DialogWindow";
 import ItemFilter from "../filters/ItemFilter";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 const CustomAvatar = styled(Avatar)({
   backgroundColor: "#ffb703",
@@ -43,9 +45,24 @@ const CustomDivider = styled(Divider)`
   margin: 1rem 0rem 1rem 0;
 `;
 
+const ItemContainer = styling.div`
+  margin: 4rem 0 0 1rem;
+`;
+
+const filterFunc = (filter, item) => {
+  if (filter === "ALL") {
+    return item;
+  } else if (filter === "ACTIVE") {
+    return !item.finished;
+  } else {
+    return item.finished;
+  }
+};
+
 const TodoList = ({ data }) => {
   const dispatch = useAppDispatch();
   const [filter, setFilter] = useState("ALL");
+  const [search, setSearch] = useState("");
 
   //Dialog handling
   const [openItemDialog, setOpenItemDialog] = useState(false);
@@ -81,15 +98,16 @@ const TodoList = ({ data }) => {
 
   const handleOpenConfirmDialog = () => {
     setConfirmDialog(true);
-  }
+  };
 
   const handleCancelConfirmDialog = () => {
     setConfirmDialog(false);
-  }
+  };
 
   return (
     <Card variant="outlined" key={data.id}>
       <CustomCardHeader
+        key={"header" + data.id}
         avatar={
           <CustomAvatar>
             <Typography color="primary">{data.title[0]}</Typography>
@@ -104,32 +122,58 @@ const TodoList = ({ data }) => {
         action={
           <>
             <ItemFilter setFilter={setFilter}></ItemFilter>
-            <IconButton
-              onClick={handleOpenConfirmDialog}
-              color="secondary"
-            >
+            <IconButton onClick={handleOpenConfirmDialog} color="secondary">
               <ClearIcon></ClearIcon>
             </IconButton>
           </>
         }
       ></CustomCardHeader>
       <CardContent>
+        {data.todoItems.filter((item) => {
+          return filterFunc(filter, item);
+        }).length > 0 ? (
+          <Autocomplete
+            disablePortal
+            id={"search" + data.id}
+            options={data.todoItems
+              .filter((item) => {
+                return filterFunc(filter, item);
+              })
+              .map((item) => item.title)}
+            sx={{ width: 200, position: "absolute", right: "13.5vw" }}
+            onInputChange={(event, value, reason) => {
+              reason === "reset" ? setSearch("") : setSearch(value.toString());
+            }}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Search"
+                color="secondary"
+              />
+            )}
+          />
+        ) : (
+          <></>
+        )}
         {data.todoItems
           .filter((item) => {
-            if (filter === "ALL") {
+            if (search == "") {
               return item;
-            } else if (filter === "ACTIVE") {
-              return !item.finished;
             } else {
-              return item.finished;
+              return item.title.toLowerCase().includes(search.toLowerCase());
             }
+          })
+          .filter((item) => {
+            return filterFunc(filter, item);
           })
           .map((item) => {
             return (
-              <>
+              <ItemContainer>
                 <TodoItem data={item} key={item.id}></TodoItem>
                 <CustomDivider />
-              </>
+              </ItemContainer>
             );
           })}
         <Container>
@@ -148,15 +192,15 @@ const TodoList = ({ data }) => {
         handleCancel={handleCloseCancelItem}
       ></DialogWindow>
       <DialogWindow
-      open={openConfirmDialog}
-      title="Remove Todo List"
-      description="Do you wish to remove this Todo?"
-      handleClose={(props) => {dispatchRemove({...props, id: data.id})}}
-      handleCancel={handleCancelConfirmDialog}
-      confirm={true}
-      >
-
-      </DialogWindow>
+        open={openConfirmDialog}
+        title="Remove Todo List"
+        description="Do you wish to remove this Todo?"
+        handleClose={(props) => {
+          dispatchRemove({ ...props, id: data.id });
+        }}
+        handleCancel={handleCancelConfirmDialog}
+        confirm={true}
+      ></DialogWindow>
     </Card>
   );
 };

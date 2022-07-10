@@ -30,10 +30,10 @@ const TodoWrapper = () => {
   return (
     <Container>
       <FloatingButton>
-        <DialogController text="+"></DialogController>
+        <DialogController absolute={true}></DialogController>
       </FloatingButton>
       {state.todoList.todos.map((list) => {
-        return <CustomTodoList key={list.id} data={list}></CustomTodoList>;
+        return <CustomTodoList key={"custom" + list.id} data={list}></CustomTodoList>;
       })}
     </Container>
   );
