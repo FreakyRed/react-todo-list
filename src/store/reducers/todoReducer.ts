@@ -4,25 +4,6 @@ const INITIAL_STATE = {
   todos: [],
 };
 
-// TODO FIGURE THIS OUT
-// export interface TodoState {
-//   todos: TodoList[];
-// }
-
-// interface TodoList {
-//   id: String;
-//   todoItems: Array<TodoItem>;
-// }
-
-// interface TodoItem {
-//   id: String;
-//   todoListId: String;
-//   title: String;
-//   description: String;
-//   finished: false;
-//   deadline: Date;
-// }
-
 const findIndexById = (state, id) => {
   return state.todos.findIndex((el) => el.id === id);
 };
