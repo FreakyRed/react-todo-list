@@ -1,0 +1,25 @@
+{
+    "translation": {
+        "Cancel": "Zrušiť",
+        "Remove": "Odstrániť",
+        "Add a Todo list": "Pridať Todo list",
+        "Please fill in the title": "Zadajte názov",
+        "All": "Všetky",
+        "Active": "Aktívne",
+        "Finished": "Hotové",
+        "Add": "Pridať",
+        "Description": "Popis",
+        "Title": "Názov",
+        "Deadline": "Termín",
+        "Add Todo": "Pridať Todo",
+        "Looks like you don't have any Todo Lists...": "Najskôr nemáte žiadne Todo Listy...",
+        "State saved": "Stav uložený",
+        "State of the app has been saved to Back4App": "Stav aplikácie bol uložený do Back4App",
+        "Remove Todo Item": "Odstrániť Todo zápis",
+        "Do you wish to remove this Todo item?": "Prajete si odstrániť tento Todo Item?",
+        "Add an item": "Pridať zápis",
+        "Please fill the following fields": "Vyplňte nasledujúce polia",
+        "Remove Todo List": "Odstrániť Todo List",
+        "Do you wish to remove this Todo?": "Prajete si odstrániť tento Todo List?"
+    }
+  }

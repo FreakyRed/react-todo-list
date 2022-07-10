@@ -3,9 +3,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { AppDispatch } from "../../store/store";
 import AddIcon from "@mui/icons-material/Add";
-
 import { v4 as uuid } from "uuid";
-
 import DialogWindow from "./DialogWindow";
 
 const DialogController = (props) => {
@@ -31,7 +29,11 @@ const DialogController = (props) => {
   return (
     <>
       {props.absolute ? (
-        <IconButton onClick={handleOpen} color="secondary" sx={{backgroundColor: "#023047"}}>
+        <IconButton
+          onClick={handleOpen}
+          color="secondary"
+          sx={{ backgroundColor: "#023047" }}
+        >
           <AddIcon fontSize="large"></AddIcon>
         </IconButton>
       ) : (
@@ -42,7 +44,7 @@ const DialogController = (props) => {
       <DialogWindow
         list={true}
         open={openListDialog}
-        title={props.title || "Add a ToDo list"}
+        title={props.title || "Add a Todo list"}
         description={props.title || "Please fill in the title"}
         handleClose={handleClose}
         handleCancel={handleCloseCancel}

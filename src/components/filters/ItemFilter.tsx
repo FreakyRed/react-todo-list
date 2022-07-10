@@ -2,6 +2,8 @@ import { useState } from "react";
 import { IconButton } from "@mui/material";
 import { Menu, MenuItem } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import "../../i18n";
+import { useTranslation } from "react-i18next";
 
 const ItemFilter = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -13,6 +15,7 @@ const ItemFilter = (props) => {
     props.setFilter(event.currentTarget.dataset.value);
     setAnchorEl(null);
   };
+  const { t } = useTranslation();
 
   return (
     <>
@@ -29,13 +32,13 @@ const ItemFilter = (props) => {
         }}
       >
         <MenuItem onClick={handleClose} data-value={"ALL"}>
-          All
+          {t("All")}
         </MenuItem>
         <MenuItem onClick={handleClose} data-value={"ACTIVE"}>
-          Active
+          {t("Active")}
         </MenuItem>
         <MenuItem onClick={handleClose} data-value={"FINISHED"}>
-          Finished
+          {t("Finished")}
         </MenuItem>
       </Menu>
     </>

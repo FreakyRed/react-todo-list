@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Parse from "parse/dist/parse.min.js";
 import { useAppSelector } from "../../store/hooks";
