@@ -159,7 +159,7 @@ const TodoList = ({ data }) => {
         )}
         {data.todoItems
           .filter((item) => {
-            if (search == "") {
+            if (search === "") {
               return item;
             } else {
               return item.title.toLowerCase().includes(search.toLowerCase());

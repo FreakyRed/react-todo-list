@@ -4,6 +4,7 @@ import TodoList from "./TodoList";
 
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store/store";
+import PersistState from "../persister/PersistState";
 
 const FloatingButton = styling.div`
   position: fixed;
@@ -11,6 +12,13 @@ const FloatingButton = styling.div`
   right: 0;
   margin: 2rem;
 `;
+
+const FloatingButtonPersist = styling.div`
+position: fixed;
+bottom: 0;
+right: 0;
+margin: 2rem 2rem 6rem 2rem;
+`
 
 const Container = styling.div`
     max-width: 100%;
@@ -32,8 +40,13 @@ const TodoWrapper = () => {
       <FloatingButton>
         <DialogController absolute={true}></DialogController>
       </FloatingButton>
+      <FloatingButtonPersist>
+        <PersistState></PersistState>
+      </FloatingButtonPersist>
       {state.todoList.todos.map((list) => {
-        return <CustomTodoList key={"custom" + list.id} data={list}></CustomTodoList>;
+        return (
+          <CustomTodoList key={"custom" + list.id} data={list}></CustomTodoList>
+        );
       })}
     </Container>
   );

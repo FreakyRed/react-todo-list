@@ -7,12 +7,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { v4 as uuid } from "uuid";
 
 import DialogWindow from "./DialogWindow";
-import styling from "styled-components"
-
-const Container = styling.div`
-  background-color: primary;
-  border-radius: 0.10rem;
-`;
 
 const DialogController = (props) => {
   const dispatch: AppDispatch = useAppDispatch();

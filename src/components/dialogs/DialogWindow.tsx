@@ -29,7 +29,8 @@ const DialogWindow = (props) => {
             <CustomButton onClick={props.handleClose} color="primary" variant="contained">Remove</CustomButton>
           ) : props.list ? (
             <ListForm handleClose={props.handleClose}></ListForm>
-          ) : (
+          ) : props.persist ? (<></>) :
+          (
             <ItemForm handleClose={props.handleClose}></ItemForm>
           )}
         </Container>

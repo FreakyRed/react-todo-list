@@ -44,7 +44,6 @@ const ItemForm = ({ handleClose }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values.title);
       handleClose({
         title: values.title,
         description: values.description,
