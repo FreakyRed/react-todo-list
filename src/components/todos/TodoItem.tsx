@@ -1,11 +1,12 @@
 import styling from "styled-components";
 import { Typography } from "@mui/material";
-
+import {useState} from "react"
 import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckIcon from "@mui/icons-material/Check";
 import { useAppDispatch } from "../../store/hooks";
+import DialogWindow from "../dialogs/DialogWindow";
 
 const Container = styling.div`
   display: flex;
@@ -28,12 +29,22 @@ const ButtonContainer = styling.div`
 
 const TodoItem = ({ data }) => {
   const dispatch = useAppDispatch();
+  const [openConfirmDialog, setConfirmDialog] = useState(false);
+
+  const handleOpenConfirmDialog = () => {
+    setConfirmDialog(true);
+  };
+
+  const handleCancelConfirmDialog = () => {
+    setConfirmDialog(false);
+  };
 
   const dispatchRemoveItem = (props) => {
     dispatch({
       type: "REMOVE_TODO_ITEM",
       payload: { id: props.id, todoListId: props.todoListId },
     });
+    setConfirmDialog(false);
   };
 
   const dispatchFinishedItem = (props) => {
@@ -67,9 +78,7 @@ const TodoItem = ({ data }) => {
       </DataContainer>
       <ButtonContainer>
         <IconButton
-          onClick={() => {
-            dispatchRemoveItem({ id: data.id, todoListId: data.todoListId });
-          }}
+          onClick={handleOpenConfirmDialog}
         >
           <ClearIcon fontSize="large"></ClearIcon>
         </IconButton>
@@ -90,6 +99,16 @@ const TodoItem = ({ data }) => {
           )}
         </IconButton>
       </ButtonContainer>
+      <DialogWindow
+        open={openConfirmDialog}
+        title="Remove Todo Item"
+        description="Do you wish to remove this Todo item?"
+        handleClose={(props) => {
+          dispatchRemoveItem({ ...props, id: data.id, todoListId: data.todoListId });
+        }}
+        handleCancel={handleCancelConfirmDialog}
+        confirm={true}
+      ></DialogWindow>
     </Container>
   );
 };

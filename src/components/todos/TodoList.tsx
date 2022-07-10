@@ -49,6 +49,7 @@ const TodoList = ({ data }) => {
 
   //Dialog handling
   const [openItemDialog, setOpenItemDialog] = useState(false);
+  const [openConfirmDialog, setConfirmDialog] = useState(false);
 
   const handleOpenItem = () => {
     setOpenItemDialog(true);
@@ -75,7 +76,16 @@ const TodoList = ({ data }) => {
 
   const dispatchRemove = ({ id }) => {
     dispatch({ type: "REMOVE_TODO", payload: { id: id } });
+    setConfirmDialog(false);
   };
+
+  const handleOpenConfirmDialog = () => {
+    setConfirmDialog(true);
+  }
+
+  const handleCancelConfirmDialog = () => {
+    setConfirmDialog(false);
+  }
 
   return (
     <Card variant="outlined" key={data.id}>
@@ -95,9 +105,7 @@ const TodoList = ({ data }) => {
           <>
             <ItemFilter setFilter={setFilter}></ItemFilter>
             <IconButton
-              onClick={() => {
-                dispatchRemove({ id: data.id });
-              }}
+              onClick={handleOpenConfirmDialog}
               color="secondary"
             >
               <ClearIcon></ClearIcon>
@@ -139,6 +147,16 @@ const TodoList = ({ data }) => {
         }}
         handleCancel={handleCloseCancelItem}
       ></DialogWindow>
+      <DialogWindow
+      open={openConfirmDialog}
+      title="Remove Todo List"
+      description="Do you wish to remove this Todo?"
+      handleClose={(props) => {dispatchRemove({...props, id: data.id})}}
+      handleCancel={handleCancelConfirmDialog}
+      confirm={true}
+      >
+
+      </DialogWindow>
     </Card>
   );
 };

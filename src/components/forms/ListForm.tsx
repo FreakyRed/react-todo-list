@@ -44,7 +44,7 @@ const ListForm = ({ handleClose }) => {
           type="submit"
           disabled={formik.isSubmitting}
         >
-          Submit
+          Add Todo
         </Button>
       </Container>
     </form>
