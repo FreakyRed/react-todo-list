@@ -12,12 +12,11 @@ import { styled } from "@mui/material";
 import TodoItem from "./TodoItem";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { useAppDispatch } from "../../store/hooks";
 import styling from "styled-components";
 import { v4 as uuid } from "uuid";
 import DialogWindow from "../dialogs/DialogWindow";
-import { Menu, MenuItem } from "@mui/material";
+import ItemFilter from "../filters/ItemFilter";
 
 const CustomAvatar = styled(Avatar)({
   backgroundColor: "#ffb703",
@@ -46,18 +45,7 @@ const CustomDivider = styled(Divider)`
 
 const TodoList = ({ data }) => {
   const dispatch = useAppDispatch();
-
-  //Filter menu handling
-  const [anchorEl, setAnchorEl] = useState(null);
   const [filter, setFilter] = useState("ALL");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (event) => {
-    setFilter(event.currentTarget.dataset.value);
-    setAnchorEl(null);
-  };
 
   //Dialog handling
   const [openItemDialog, setOpenItemDialog] = useState(false);
@@ -105,28 +93,7 @@ const TodoList = ({ data }) => {
         }}
         action={
           <>
-            <IconButton onClick={handleClick} color="secondary">
-              <FilterListIcon></FilterListIcon>
-            </IconButton>
-            <Menu
-              id="menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handleClose} data-value={"ALL"}>
-                All
-              </MenuItem>
-              <MenuItem onClick={handleClose} data-value={"ACTIVE"}>
-                Active
-              </MenuItem>
-              <MenuItem onClick={handleClose} data-value={"FINISHED"}>
-                Finished
-              </MenuItem>
-            </Menu>
+            <ItemFilter setFilter={setFilter}></ItemFilter>
             <IconButton
               onClick={() => {
                 dispatchRemove({ id: data.id });
